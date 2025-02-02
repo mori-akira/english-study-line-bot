@@ -1,3 +1,4 @@
+import json
 import boto3
 from botocore.exceptions import ClientError
 
@@ -15,7 +16,7 @@ def get_secret(secret_name: str, region_name: str = "ap-northeast-1"):
     except ClientError as e:
         raise e
 
-    return get_secret_value_response['SecretString']
+    return json.loads(get_secret_value_response['SecretString'])
 
 
 if __name__ == '__main__':
