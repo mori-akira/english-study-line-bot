@@ -1,5 +1,5 @@
-from .openai_query import generate_question  # type: ignore
-from .linebot_query import push_message  # type: ignore
+from openai_query import generate_question  # type: ignore
+from linebot_query import push_message  # type: ignore
 
 
 def lambda_handler():

@@ -10,7 +10,7 @@ on:
 
 jobs:
 
-  # テストとデプロイの実行
+  # デプロイの実行
   deploy:
     runs-on: ubuntu-latest
 

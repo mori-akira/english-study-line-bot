@@ -1,8 +1,13 @@
 from openai import OpenAI
 
+from secrets_manager import get_secret  # type: ignore
 
-def generate_question(api_key: str):
-    client = OpenAI(api_key=api_key)
+secrets = get_secret("englishStudyBot")
+api_key = secrets.get("OPENAI_API_KEY")
+client = OpenAI(api_key=api_key)
+
+
+def generate_question():
     completion = client.chat.completions.create(
         model="gpt-4o",
         store=True,
@@ -37,8 +42,7 @@ def generate_question(api_key: str):
     return content.strip() if content else ""
 
 
-def feedback(api_key: str, question: str, answer: str):
-    client = OpenAI(api_key=api_key)
+def feedback(question: str, answer: str):
     completion = client.chat.completions.create(
         model="gpt-4o",
         store=True,

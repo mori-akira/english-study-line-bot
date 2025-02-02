@@ -1,6 +1,6 @@
 from openai import OpenAI
 
-from .secrets_manager import get_secret  # type: ignore
+from secrets_manager import get_secret  # type: ignore
 
 secrets = get_secret("englishStudyBot")
 api_key = secrets.get("OPENAI_API_KEY")

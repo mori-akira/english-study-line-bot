@@ -6,7 +6,7 @@ from linebot.v3.messaging import (
     TextMessage,
 )
 
-from .secrets_manager import get_secret  # type: ignore
+from secrets_manager import get_secret  # type: ignore
 
 secrets = get_secret("englishStudyBot")
 access_token = secrets.get("LINE_CHANNEL_ACCESS_TOKEN")
