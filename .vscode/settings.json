@@ -1,0 +1,17 @@
+{
+  // メソッドの括弧の補完
+  "python.analysis.completeFunctionParens": true,
+  // 型のチェック
+  "python.analysis.typeCheckingMode": "basic",
+  // コード分析の範囲
+  "python.analysis.diagnosticMode": "workspace",
+  "[python]": {
+    "editor.tabSize": 4,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": false,
+    "editor.formatOnType": false
+  },
+  "pylint.args": ["\"pylint.args\": [\"--max-line-length=120\"]"],
+  "editor.formatOnSave": true,
+  "files.eol": "\n"
+}

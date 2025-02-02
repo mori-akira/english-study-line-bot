@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "Gruntfuggly.todo-tree",
+    "oderwat.indent-rainbow",
+    "PKief.material-icon-theme",
+    "ms-python.autopep8",
+    "ms-python.flake8",
+    "GrapeCity.gc-excelviewer",
+    "mechatroner.rainbow-csv"
+  ]
+}
