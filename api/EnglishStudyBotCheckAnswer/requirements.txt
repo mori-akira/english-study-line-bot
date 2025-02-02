@@ -1,4 +1,5 @@
 flask
 boto3
+mypy-boto3-dynamodb
 line-bot-sdk
 openai
