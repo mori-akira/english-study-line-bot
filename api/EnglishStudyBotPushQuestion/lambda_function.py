@@ -12,7 +12,8 @@ def lambda_handler(event, context):
         user_id: str = user.get("user_id")  # type: ignore
         question = generate_question(user_dict_to_user_info(user))
         message = (
-            "【英訳問題】以下の和文を英訳してください。\n\n"
+            "【出題】\n"
+            "以下の和文を英訳してください。\n\n"
             f"{question}"
         )
         push_message(user_id, message)
