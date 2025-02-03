@@ -1,4 +1,4 @@
-from dynamodb_query import list_user  # type: ignore
+from dynamodb_query import list_user, put_question  # type: ignore
 from openai_query import UserInfo, generate_question  # type: ignore
 from linebot_query import push_message  # type: ignore
 
@@ -9,6 +9,7 @@ def lambda_handler(event, context):
 
     # 各ユーザに出題
     for user in users:
+        user_id = user.get("user_id")
         question = generate_question(UserInfo(
             english_word_count_indication=int(
                 user.get("english_word_count_indication")
@@ -21,4 +22,5 @@ def lambda_handler(event, context):
             "【英訳問題】以下の和文を英訳してください。\n\n"
             f"{question}"
         )
-        push_message(message, user.get("user_id"))
+        push_message(user_id, message)
+        put_question(user_id, question)

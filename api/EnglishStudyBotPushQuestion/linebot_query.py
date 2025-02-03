@@ -14,7 +14,7 @@ channel_secret = secrets.get("LINE_CHANNEL_SECRET")
 configuration = Configuration(access_token=access_token)
 
 
-def push_message(message: str, to: str):
+def push_message(to: str, message: str):
     with ApiClient(configuration) as api_client:
         line_bot_api = MessagingApi(api_client)
         line_bot_api.push_message(
