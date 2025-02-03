@@ -1,28 +1,11 @@
-import boto3
-from mypy_boto3_dynamodb.service_resource import DynamoDBServiceResource
-from boto3.dynamodb.conditions import Attr
-
+from dynamodb_query import list_user  # type: ignore
 from openai_query import UserInfo, generate_question  # type: ignore
 from linebot_query import push_message  # type: ignore
 
 
-dynamodb: DynamoDBServiceResource = boto3.resource("dynamodb")  # type: ignore
-user_table = dynamodb.Table("english-study-bot-user")
-quiz_table = dynamodb.Table("english-study-bot-quiz-history")
-
-
 def lambda_handler(event, context):
     # ユーザ一覧取得
-    users = []
-    response = user_table.scan(
-        FilterExpression=Attr('is_valid').eq(True)
-    )
-    users.extend(response.get("Items", []))
-    while "LastEvaluatedKey" in response:
-        response = user_table.scan(
-            FilterExpression=Attr('is_valid').eq(True)
-        )
-        users.extend(response.get("Items", []))
+    users = list_user()
 
     # 各ユーザに出題
     for user in users:
