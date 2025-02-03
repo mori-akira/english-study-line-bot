@@ -24,11 +24,20 @@ def list_user() -> list[dict[str, Any]]:
     return users
 
 
+def get_user(user_id: str):
+    response = user_table.query(
+        KeyConditionExpression=Key('user_id').eq(user_id),
+        Limit=1,
+    )
+    items = response.get('Items', [])
+    return items[0] if items else None
+
+
 def get_latest_question(user_id: str):
     response = question_table.query(
         KeyConditionExpression=Key('user_id').eq(user_id),
         ScanIndexForward=False,
-        Limit=1
+        Limit=1,
     )
     items = response.get('Items', [])
     return items[0] if items else None

@@ -10,10 +10,24 @@ client = OpenAI(api_key=api_key)
 
 @dataclass
 class UserInfo():
-    english_word_count_indication: int
-    english_level: str
-    purpose: str
-    occupation: str
+    english_word_count_indication: int = 10
+    english_level: str = "小中学生"
+    purpose: str = "日常会話"
+    occupation: str = ""
+
+
+def user_dict_to_user_info(user: dict) -> UserInfo:
+    if user:
+        return UserInfo(
+            english_word_count_indication=int(
+                user.get("english_word_count_indication")  # type: ignore
+            ),
+            english_level=user.get("english_level"),  # type: ignore
+            purpose=user.get("purpose"),  # type: ignore
+            occupation=user.get("occupation"),  # type: ignore
+        )
+    else:
+        return UserInfo()
 
 
 def generate_question(user_info: UserInfo):
@@ -51,7 +65,7 @@ def generate_question(user_info: UserInfo):
     return content.strip() if content else ""
 
 
-def feedback(question: str, answer: str):
+def generate_feedback(question: str, answer: str):
     completion = client.chat.completions.create(
         model="gpt-4o",
         store=True,
