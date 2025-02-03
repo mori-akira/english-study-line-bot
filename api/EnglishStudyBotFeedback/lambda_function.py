@@ -1,16 +1,13 @@
-import json
+from linebot_query import handle_message
 
 
 def lambda_handler(event, context):
-    # headers = event.get("headers", {})
-
+    headers = event.get("headers", {})
+    signature = headers.get("X-Line-Signature")
     body = event.get("body", "{}")
-    try:
-        body_json = json.loads(body)
-    except json.JSONDecodeError:
-        body_json = {"error": "Invalid JSON"}
+    print(body)
+    handle_message(body, signature)
 
     return {
         "statusCode": 200,
-        "body": json.dumps(body_json)
     }
