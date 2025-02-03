@@ -3,6 +3,7 @@ from linebot_query import handle_message
 
 def lambda_handler(event, context):
     headers = event.get("headers", {})
+    print(headers)
     signature = headers.get("X-Line-Signature")
     body = event.get("body", "{}")
     print(body)
