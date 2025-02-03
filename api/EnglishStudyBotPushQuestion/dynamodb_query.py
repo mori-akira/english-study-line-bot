@@ -3,7 +3,7 @@ from typing import Any
 from datetime import datetime, timezone
 import boto3
 from mypy_boto3_dynamodb.service_resource import DynamoDBServiceResource
-from boto3.dynamodb.conditions import Attr
+from boto3.dynamodb.conditions import Attr, Key
 
 dynamodb: DynamoDBServiceResource = boto3.resource("dynamodb")  # type: ignore
 user_table = dynamodb.Table("english-study-bot-user")
@@ -22,6 +22,16 @@ def list_user() -> list[dict[str, Any]]:
         )
         users.extend(response.get("Items", []))
     return users
+
+
+def get_latest_question(user_id: str):
+    response = question_table.query(
+        KeyConditionExpression=Key('user_id').eq(user_id),
+        ScanIndexForward=False,
+        Limit=1
+    )
+    items = response.get('Items', [])
+    return items[0] if items else None
 
 
 def put_question(user_id: str, question: str):
