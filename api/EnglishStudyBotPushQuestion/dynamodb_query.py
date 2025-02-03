@@ -10,7 +10,7 @@ user_table = dynamodb.Table("english-study-bot-user")
 question_table = dynamodb.Table("english-study-bot-question-history")
 
 
-def list_users() -> list[dict[str, Any]]:
+def list_user() -> list[dict[str, Any]]:
     users = []
     response = user_table.scan(
         FilterExpression=Attr('is_valid').eq(True)
