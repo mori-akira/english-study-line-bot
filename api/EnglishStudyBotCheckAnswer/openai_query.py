@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from openai import OpenAI
 
 from secrets_manager import get_secret  # type: ignore
@@ -7,7 +8,15 @@ api_key = secrets.get("OPENAI_API_KEY")
 client = OpenAI(api_key=api_key)
 
 
-def generate_question():
+@dataclass
+class UserInfo():
+    english_word_count_indication: int
+    english_level: str
+    purpose: str
+    occupation: str
+
+
+def generate_question(user_info: UserInfo):
     completion = client.chat.completions.create(
         model="gpt-4o",
         store=True,
@@ -29,14 +38,14 @@ def generate_question():
             {
                 "role": "user",
                 "content": (
-                    "英単語数の目安: 20\n"
-                    "英語レベル: 大学生\n"
-                    "学習目的: ビジネス\n"
-                    "職業: システムエンジニア"
+                    f"英単語数の目安: {user_info.english_word_count_indication}\n"
+                    f"英語レベル: {user_info.english_level}\n"
+                    f"学習目的: {user_info.purpose}\n"
+                    f"職業: {user_info.occupation}"
                 ),
             },
         ],
-        temperature=0.7,
+        temperature=0.8,
     )
     content = completion.choices[0].message.content
     return content.strip() if content else ""
@@ -65,7 +74,7 @@ def feedback(question: str, answer: str):
                 ),
             },
         ],
-        temperature=0.7,
+        temperature=0.8,
     )
     content = completion.choices[0].message.content
     return content.strip() if content else ""
