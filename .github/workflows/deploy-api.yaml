@@ -19,7 +19,7 @@ jobs:
       matrix:
         target:
           - EnglishStudyBotPushQuestion
-          # - EnglishStudyBotCheckAnswer
+          - EnglishStudyBotFeedback
 
     steps:
       # リポジトリをクローン

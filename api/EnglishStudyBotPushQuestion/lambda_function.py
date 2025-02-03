@@ -9,14 +9,14 @@ def lambda_handler(event, context):
 
     # 各ユーザに出題
     for user in users:
-        user_id = user.get("user_id")
+        user_id: str = user.get("user_id")  # type: ignore
         question = generate_question(UserInfo(
             english_word_count_indication=int(
-                user.get("english_word_count_indication")
+                user.get("english_word_count_indication")  # type: ignore
             ),
-            english_level=user.get("english_level"),
-            purpose=user.get("purpose"),
-            occupation=user.get("occupation"),
+            english_level=user.get("english_level"),  # type: ignore
+            purpose=user.get("purpose"),  # type: ignore
+            occupation=user.get("occupation"),  # type: ignore
         ))
         message = (
             "【英訳問題】以下の和文を英訳してください。\n\n"
