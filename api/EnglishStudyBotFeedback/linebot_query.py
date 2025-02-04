@@ -53,6 +53,8 @@ def add_handler(event):
 
 def _push_new_question(user_id: str):
     user = get_user(user_id)
+    if not user:
+        return
     question = generate_question(user_dict_to_user_info(user))  # type: ignore
     message = (
         "【出題】\n"
@@ -64,6 +66,9 @@ def _push_new_question(user_id: str):
 
 
 def _reply_feedback(user_id: str, text: str, reply_token: str):
+    user = get_user(user_id)
+    if not user:
+        return
     question = get_latest_question(user_id)
     question = question.get("question_text") if question else ""
     feedback = generate_feedback(question, text)  # type: ignore
