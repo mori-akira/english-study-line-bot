@@ -32,7 +32,7 @@ def user_dict_to_user_info(user: dict) -> UserInfo:
 
 def generate_question(user_info: UserInfo):
     completion = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-4.1",
         store=True,
         messages=[
             {
