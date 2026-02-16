@@ -1,10 +1,8 @@
 from dataclasses import dataclass
+import os
 from openai import OpenAI
 
-from secrets_manager import get_secret  # type: ignore
-
-secrets = get_secret("englishStudyBot")
-api_key = secrets.get("OPENAI_API_KEY")
+api_key = os.environ.get("OPENAI_API_KEY")
 client = OpenAI(api_key=api_key)
 
 

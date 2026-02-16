@@ -1,3 +1,4 @@
+import os
 from linebot.v3 import WebhookHandler
 from linebot.v3.messaging import (
     Configuration,
@@ -9,13 +10,11 @@ from linebot.v3.messaging import (
 )
 from linebot.v3.webhooks import MessageEvent, TextMessageContent
 
-from secrets_manager import get_secret
 from dynamodb_query import get_user, get_latest_question, put_question
 from openai_query import user_dict_to_user_info, generate_question, generate_feedback
 
-secrets = get_secret("englishStudyBot")
-access_token = secrets.get("LINE_CHANNEL_ACCESS_TOKEN")
-channel_secret = secrets.get("LINE_CHANNEL_SECRET")
+access_token = os.environ.get("LINE_CHANNEL_ACCESS_TOKEN")
+channel_secret = os.environ.get("LINE_CHANNEL_SECRET")
 configuration = Configuration(access_token=access_token)
 handler = WebhookHandler(channel_secret)
 
