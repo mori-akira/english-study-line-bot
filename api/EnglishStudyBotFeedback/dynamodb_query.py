@@ -1,6 +1,6 @@
 import uuid
 from typing import Any
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import boto3
 from mypy_boto3_dynamodb.service_resource import DynamoDBServiceResource
 from boto3.dynamodb.conditions import Attr, Key
@@ -45,10 +45,14 @@ def get_latest_question(user_id: str):
 
 
 def put_question(user_id: str, question: str):
+    now = datetime.now(timezone.utc)
+    expire_at = now + timedelta(days=7)
+
     item = {
         "question_id": str(uuid.uuid4()),
         "user_id": user_id,
         "question_text": question,
         "question_datetime": datetime.now(timezone.utc).isoformat(),
+        "ttl": int(expire_at.timestamp()),
     }
     question_table.put_item(Item=item)
